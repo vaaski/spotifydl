@@ -29,8 +29,8 @@ func main() {
 	tracks, err := getTracks(playlist_id, access_token)
 	maybePanic(err)
 
-	for _, track := range tracks {
-		fmt.Println("downloading", track)
+	for index, track := range tracks {
+		fmt.Println("downloading", track, "(", index+1, "/", len(tracks), ")")
 		downloadTrack(track, playlistName)
 
 		println("\n")
