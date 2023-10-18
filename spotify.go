@@ -3,6 +3,7 @@ package main
 import (
 	"io"
 	"net/http"
+	"regexp"
 	"strings"
 
 	"github.com/buger/jsonparser"
@@ -97,4 +98,18 @@ func parseTracks(bodies [][]byte) []string {
 	}
 
 	return tracks
+}
+
+func parseSpotifyUrlOrId(urlOrId string) string {
+	if len(urlOrId) == 22 {
+		return urlOrId
+	}
+
+	regex := regexp.MustCompile(`spotify\.com\/playlist\/(\w{22})`)
+	matches := regex.FindStringSubmatch(urlOrId)
+	if len(matches) == 2 {
+		return matches[1]
+	}
+
+	panic("invalid spotify url or id")
 }

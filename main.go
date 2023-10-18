@@ -19,6 +19,7 @@ var (
 // medium playlist  62KQaqwTfsOViSU49uUozv
 
 // todo parse spotify playlist url
+// todo get spotify playlist name and use it as the folder name
 
 func main() {
 	client_id, client_secret, err := readCredentials()
@@ -32,7 +33,7 @@ func main() {
 	access_token, err := spotifyAuth(client_id, client_secret)
 	maybePanic(err)
 
-	playlist_id := askForUserInput("playlist_id")
+	playlist_id := parseSpotifyUrlOrId(askForUserInput("playlist id or url"))
 
 	tracks, err := getTracks(playlist_id, access_token)
 	maybePanic(err)
