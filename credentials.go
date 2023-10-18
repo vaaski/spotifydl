@@ -1,9 +1,7 @@
 package main
 
 import (
-	"bufio"
 	b64 "encoding/base64"
-	"fmt"
 	"log"
 	"os"
 	"strings"
@@ -26,16 +24,8 @@ func readCredentials() (string, string, error) {
 }
 
 func askForCredentials() {
-	fmt.Print("client_id: ")
-	reader := bufio.NewReader(os.Stdin)
-	bClient_id, err := reader.ReadString('\n')
-	maybePanic(err)
-	client_id := strings.TrimSpace(string(bClient_id))
-
-	fmt.Print("client_secret: ")
-	bClient_secret, err := reader.ReadString('\n')
-	maybePanic(err)
-	client_secret := strings.TrimSpace(string(bClient_secret))
+	client_id := askForUserInput("client_id")
+	client_secret := askForUserInput("client_secret")
 
 	joined := strings.Join([]string{client_id, client_secret}, ":")
 	encoded := b64.StdEncoding.EncodeToString([]byte(joined))

@@ -9,8 +9,6 @@ var (
 	CREDENTAIL_FILE = filepath.Join(".spotify-credentials")
 )
 
-// todo: get tracks
-
 // append #songs to search only the songs and include the "Top result"
 // https://github.com/yt-dlp/yt-dlp/issues/6007#issuecomment-1769137538
 
@@ -19,6 +17,8 @@ var (
 // short playlist   7fBWGZ99ymBeGXeIKWebyh
 // long playlist    0T8npk4GpmL564lMzaynPd
 // medium playlist  62KQaqwTfsOViSU49uUozv
+
+// todo parse spotify playlist url
 
 func main() {
 	client_id, client_secret, err := readCredentials()
@@ -32,7 +32,9 @@ func main() {
 	access_token, err := spotifyAuth(client_id, client_secret)
 	maybePanic(err)
 
-	tracks, err := getTracks("62KQaqwTfsOViSU49uUozv", access_token)
+	playlist_id := askForUserInput("playlist_id")
+
+	tracks, err := getTracks(playlist_id, access_token)
 	maybePanic(err)
 
 	for _, track := range tracks {
