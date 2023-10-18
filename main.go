@@ -19,5 +19,5 @@ func main() {
 		maybePanic(err)
 	}
 
-	fmt.Println(client_id, client_secret)
+	fmt.Println(spotifyAuth(client_id, client_secret))
 }
