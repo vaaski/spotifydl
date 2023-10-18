@@ -3,12 +3,10 @@ package main
 import (
 	"fmt"
 	"path/filepath"
-	"strings"
 )
 
 var (
-	youtubeMusicSearchUrl = "https://music.youtube.com/search?q="
-	CREDENTAIL_FILE       = filepath.Join(".spotify-credentials")
+	CREDENTAIL_FILE = filepath.Join(".spotify-credentials")
 )
 
 // todo: get tracks
@@ -18,9 +16,9 @@ var (
 
 // yt-dlp -I 1 -x --audio-format mp3 --extractor-args 'youtube:player_client=web;player_skip=configs' "https://music.youtube.com/search?q=query#songs"
 
-// short playlist  7fBWGZ99ymBeGXeIKWebyh
-// long playlist   0T8npk4GpmL564lMzaynPd
-// medium playlist 62KQaqwTfsOViSU49uUozv
+// short playlist   7fBWGZ99ymBeGXeIKWebyh
+// long playlist    0T8npk4GpmL564lMzaynPd
+// medium playlist  62KQaqwTfsOViSU49uUozv
 
 func main() {
 	client_id, client_secret, err := readCredentials()
@@ -34,10 +32,13 @@ func main() {
 	access_token, err := spotifyAuth(client_id, client_secret)
 	maybePanic(err)
 
-	fmt.Println(access_token)
-
 	tracks, err := getTracks("62KQaqwTfsOViSU49uUozv", access_token)
 	maybePanic(err)
 
-	fmt.Println(strings.Join(tracks, "\n"))
+	for _, track := range tracks {
+		fmt.Println("downloading", track)
+		downloadTrack(track)
+
+		println("\n")
+	}
 }

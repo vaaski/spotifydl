@@ -1,4 +1,4 @@
-module main
+module github.com/vaaski/spotifydl
 
 go 1.21.3
 
