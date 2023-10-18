@@ -24,8 +24,8 @@ func readCredentials() (string, string, error) {
 }
 
 func askForCredentials() {
-	client_id := askForUserInput("client_id")
-	client_secret := askForUserInput("client_secret")
+	client_id := askForUserInput("api client_id")
+	client_secret := askForUserInput("api client_secret")
 
 	joined := strings.Join([]string{client_id, client_secret}, ":")
 	encoded := b64.StdEncoding.EncodeToString([]byte(joined))
