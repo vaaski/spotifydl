@@ -35,6 +35,31 @@ func spotifyAuth(client_id string, client_secret string) (string, error) {
 	return access_token, nil
 }
 
+func getPlaylistName(playlist_id string, access_token string) (string, error) {
+	url := "https://api.spotify.com/v1/playlists/" + playlist_id + "?fields=name"
+
+	req, _ := http.NewRequest("GET", url, nil)
+	req.Header.Add("Authorization", "Bearer "+access_token)
+
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return "", err
+	}
+	defer res.Body.Close()
+
+	body, err := io.ReadAll(res.Body)
+	if err != nil {
+		return "", err
+	}
+
+	name, err := jsonparser.GetString(body, "name")
+	if err != nil {
+		return "", err
+	}
+
+	return name, nil
+}
+
 func getTracks(playlist_id string, access_token string) ([]string, error) {
 	url := "https://api.spotify.com/v1/playlists/" + playlist_id + "/tracks?fields=next,items(track(name,artists(name)))&limit=50"
 

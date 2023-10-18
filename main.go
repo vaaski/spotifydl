@@ -9,18 +9,6 @@ var (
 	CREDENTAIL_FILE = filepath.Join(".spotify-credentials")
 )
 
-// append #songs to search only the songs and include the "Top result"
-// https://github.com/yt-dlp/yt-dlp/issues/6007#issuecomment-1769137538
-
-// yt-dlp -I 1 -x --audio-format mp3 --extractor-args 'youtube:player_client=web;player_skip=configs' "https://music.youtube.com/search?q=query#songs"
-
-// short playlist   7fBWGZ99ymBeGXeIKWebyh
-// long playlist    0T8npk4GpmL564lMzaynPd
-// medium playlist  62KQaqwTfsOViSU49uUozv
-
-// todo parse spotify playlist url
-// todo get spotify playlist name and use it as the folder name
-
 func main() {
 	client_id, client_secret, err := readCredentials()
 
@@ -35,12 +23,15 @@ func main() {
 
 	playlist_id := parseSpotifyUrlOrId(askForUserInput("playlist id or url"))
 
+	playlistName, err := getPlaylistName(playlist_id, access_token)
+	maybePanic(err)
+
 	tracks, err := getTracks(playlist_id, access_token)
 	maybePanic(err)
 
 	for _, track := range tracks {
 		fmt.Println("downloading", track)
-		downloadTrack(track)
+		downloadTrack(track, playlistName)
 
 		println("\n")
 	}
