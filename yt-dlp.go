@@ -14,7 +14,7 @@ var (
 	youtubeMusicSearchPostfix = "#songs"
 	youtubeMusicSearchUrl     = "https://music.youtube.com/search?q="
 	ytDlpPath                 = "yt-dlp"
-	downloadFolder            = "ytdl-download"
+	downloadFolder            = path.Join(exeRoot(), "ytdl-download")
 	args                      = []string{
 		"-x",
 		"--audio-format",
