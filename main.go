@@ -4,6 +4,8 @@ import (
 	"fmt"
 )
 
+// todo: compare youtube title to spotify title to make sure they match
+
 func main() {
 	client_id, client_secret, err := readCredentials()
 

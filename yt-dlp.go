@@ -21,6 +21,7 @@ var (
 		"mp3",
 		"-I",
 		"1", // only download the first result
+		"--embed-metadata",
 		"--extractor-args",
 		"youtube:player_client=web;player_skip=configs", // makes it faster
 	}
