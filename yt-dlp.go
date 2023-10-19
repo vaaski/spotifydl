@@ -23,6 +23,7 @@ var (
 		"1", // only download the first result
 		"--embed-metadata",
 		"--extractor-args",
+		"--console-title",
 		"youtube:player_client=web;player_skip=configs", // makes it faster
 	}
 )
