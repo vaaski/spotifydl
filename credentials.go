@@ -4,8 +4,28 @@ import (
 	b64 "encoding/base64"
 	"log"
 	"os"
+	"path"
 	"strings"
 )
+
+var (
+	CREDENTAIL_FILE = path.Join(exeRoot(), ".spotify-credentials")
+)
+
+// gets the folder containing the executable
+func exeRoot() string {
+	executablePath, _ := os.Executable()
+	executableFolder := path.Join(executablePath, "..")
+
+	if strings.HasPrefix(executableFolder, "/var/folders") {
+		// the path for the executable is in some temp folder when using `go run .`
+		// so we use the current working directory instead
+		cwd, _ := os.Getwd()
+		return cwd
+	} else {
+		return executableFolder
+	}
+}
 
 func readCredentials() (string, string, error) {
 	data, err := os.ReadFile(CREDENTAIL_FILE)

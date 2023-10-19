@@ -1,5 +1,7 @@
-.spotify-credentials
-*.json
 .DS_Store
+
 ytdl-download
+.spotify-credentials
+
 dist
+spotifydl*

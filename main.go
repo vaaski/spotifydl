@@ -2,11 +2,6 @@ package main
 
 import (
 	"fmt"
-	"path/filepath"
-)
-
-var (
-	CREDENTAIL_FILE = filepath.Join(".spotify-credentials")
 )
 
 func main() {
